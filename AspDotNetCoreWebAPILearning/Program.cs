@@ -13,6 +13,7 @@ var schoolInfo = new SchoolInfo();
 builder.Configuration.GetSection("SchoolInfo").Bind(schoolInfo);
 builder.Services.AddSingleton(schoolInfo);
 
+builder.Services.Configure<CompanyInfo>(builder.Configuration.GetSection("CompanyInfo"));
 
 var app = builder.Build();
 

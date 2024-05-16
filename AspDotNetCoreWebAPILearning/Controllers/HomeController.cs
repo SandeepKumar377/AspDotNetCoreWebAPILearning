@@ -1,6 +1,7 @@
 ﻿using AspDotNetCoreWebAPILearning.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AspDotNetCoreWebAPILearning.Controllers
 {
@@ -10,11 +11,17 @@ namespace AspDotNetCoreWebAPILearning.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly SchoolInfo _schoolInfo;
+        private readonly CompanyInfo _companyInfo;
 
-        public HomeController(IConfiguration configuration, SchoolInfo schoolInfo)
+        public HomeController(
+            IConfiguration configuration, 
+            SchoolInfo schoolInfo,
+            IOptions<CompanyInfo> companyInfo
+            )
         {
             _configuration = configuration;
             _schoolInfo = schoolInfo;
+            _companyInfo = companyInfo.Value;
         }
 
         [HttpGet]
@@ -36,6 +43,13 @@ namespace AspDotNetCoreWebAPILearning.Controllers
         public IActionResult GetAppSettingValuesUsingModelBinding()
         {
             return Ok(_schoolInfo.Address!.State);
+        }
+        
+        [HttpGet]
+        [Route("GetAppSettingValuesUsingClassConfigure")]
+        public IActionResult GetAppSettingValuesUsingClassConfigure()
+        {
+            return Ok(_companyInfo.AddressDetails!.State);
         }
     }
 }
