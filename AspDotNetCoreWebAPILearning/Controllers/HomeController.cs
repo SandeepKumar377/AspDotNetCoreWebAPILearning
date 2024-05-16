@@ -17,7 +17,7 @@ namespace AspDotNetCoreWebAPILearning.Controllers
         [HttpGet]
         public IActionResult GetAppSettingKeyValue()
         {
-            return Ok(_configuration["FullName"]);
+            return Ok(_configuration["UserData:FullName"]);
         }
     }
 }
